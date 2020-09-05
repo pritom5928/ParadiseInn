@@ -3,6 +3,14 @@
     ViewBag.Title = "Index";
 }
 
+<style>
+    .Description {
+        padding-top: 0;
+        padding-left: 0;
+        line-height: 1em;
+    }
+</style>
+
 <div class="row">
     <div class="col col-lg-12">
         <h2>Accomodation Types</h2>
@@ -15,9 +23,9 @@
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search.">
             <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-outline-info" type="button">Search</button>
-                <button class="btn btn-outline-secondary" type="button">Reset</button>
-                <button id="createBtn" class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#actionModal">Create</button>
+                <button class="btn btn-outline-info" type="button"><i class="fas fa-search mr-1"></i>Search</button>
+                <button class="btn btn-outline-secondary" type="button"><i class="fas fa-redo-alt mr-1"></i>Reset</button>
+                <button id="createBtn" class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#actionModal"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Create</button>
             </div>
         </div>
     </div>

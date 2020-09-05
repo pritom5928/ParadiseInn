@@ -11,6 +11,8 @@
     <link href="~/Areas/Dashboard/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <script src="~/Areas/Dashboard/Content/vendor/jquery/jquery.min.js"></script>
 </head>
 
 <body>
@@ -23,7 +25,7 @@
             <i class="fas fa-hotel mr-1"></i>  ParadiseInn
         </div>
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action bg-light">
+        <a href="@Url.Action("Index", "AccomodationTypes")" class="list-group-item list-group-item-action bg-light">
             <i class="fas fa-home mr-1"></i>Accomodation Types
         </a>
         <a href="#" class="list-group-item list-group-item-action bg-light">
@@ -49,7 +51,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">
                             <i class="fas fa-sign-out-alt mr-1"></i> Log Out
                             <span class="sr-only">(current)</span>
                         </a>
@@ -58,7 +60,7 @@
                 </ul>
             </div>
         </nav>
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        @using (Html.BeginForm("LogOff", "Account", new { area="" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
             @Html.AntiForgeryToken()
 
@@ -74,7 +76,6 @@
   </div>
   <!-- /#wrapper -->
 
-  <script src="~/Areas/Dashboard/Content/vendor/jquery/jquery.min.js"></script>
   <script src="~/Areas/Dashboard/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- Menu Toggle Script -->
   <script>

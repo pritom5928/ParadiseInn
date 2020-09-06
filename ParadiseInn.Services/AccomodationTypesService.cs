@@ -15,7 +15,19 @@ namespace ParadiseInn.Services
 
         public IEnumerable<AccomodationType> GetAllAccomodationTypes()
         {
-            return db.AccomodationTypes.AsEnumerable();
+            return db.AccomodationTypes.ToList();
+        }
+
+        public IEnumerable<AccomodationType> SearchAccomodationTypes(string searchterm)
+        {
+            var allAccomodationsType = db.AccomodationTypes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchterm))
+            {
+                allAccomodationsType = allAccomodationsType.Where(s => s.Name.ToLower().Contains(searchterm.ToLower()));
+            }
+
+            return allAccomodationsType.ToList();
         }
 
         public bool SaveAccomodationType(AccomodationType newRecord)
@@ -25,6 +37,32 @@ namespace ParadiseInn.Services
 
             return db.SaveChanges() > 0;
            
+        }
+
+        public AccomodationType GetAccomodationTypeById(int id)
+        {
+            var getData = db.AccomodationTypes.Find(id);
+
+            if (getData != null)
+            {
+                return getData;
+            }
+
+            return new AccomodationType();
+        }
+
+        public bool UpdateAccomodationType(AccomodationType model)
+        {
+            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+
+            return db.SaveChanges() > 0;
+        }
+
+        public bool DeleteAccomodationType(AccomodationType model)
+        {
+            db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
+
+            return db.SaveChanges() > 0;
         }
     }
 }

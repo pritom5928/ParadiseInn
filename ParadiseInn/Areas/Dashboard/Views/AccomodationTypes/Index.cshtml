@@ -1,4 +1,5 @@
-﻿
+﻿@model ParadiseInn.Areas.Dashboard.ViewModel.AllAccomodationTypesViewModel
+
 @{
     ViewBag.Title = "Index";
 }
@@ -18,43 +19,48 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-3">
     <div class="col col-lg-12">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search.">
-            <div class="input-group-append" id="button-addon4">
-                <button class="btn btn-outline-info" type="button"><i class="fas fa-search mr-1"></i>Search</button>
-                <button class="btn btn-outline-secondary" type="button"><i class="fas fa-redo-alt mr-1"></i>Reset</button>
-                <button id="createBtn" class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#actionModal"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Create</button>
+        <form>
+            <div class="input-group">
+                <input type="text" name="searchterm" class="form-control" value="@Model.searchterm" placeholder="Search." required>
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-info" type="submit"><i class="fas fa-search mr-1"></i>Search</button>
+                    <a class="btn btn-outline-secondary" href="@Url.Action("Index","AccomodationTypes")"><i class="fas fa-redo-alt mr-1"></i>Reset</a>
+                    <button data-href="@Url.Action("Action", "AccomodationTypes")" class="data-btn btn btn-outline-success" type="button" data-toggle="modal" data-target="#actionModal"><i class="fa fa-plus mr-1" aria-hidden="true"></i>Create</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col col-lg-12">
-        @{ Html.RenderAction("Listing", "AccomodationTypes");}
+        @*@{ Html.RenderAction("Listing", "AccomodationTypes");}*@
+
+        @{
+            Html.RenderPartial("_Listing", Model);
+        }
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="actionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        
+
     </div>
 </div>
 
 <script>
-    $("#createBtn").click(function () {
-
+    $(".data-btn").click(function () {
         $.ajax({
-            url: '@Url.Action("Action", "AccomodationTypes")'
+            url: $(this).attr("data-href"),
         })
-        .done(function (response) {
+            .done(function (response) {
 
-            $("#actionModal .modal-dialog").html(response);
+                $("#actionModal .modal-dialog").html(response);
 
-        });
+            });
 
     });
 </script>

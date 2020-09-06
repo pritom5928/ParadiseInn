@@ -12,22 +12,36 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
     public class AccomodationTypesController : Controller
     {
         AccomodationTypesService accomodationTypesService = new AccomodationTypesService();
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Listing()
+        public ActionResult Index(string searchterm)
         {
             AllAccomodationTypesViewModel model = new AllAccomodationTypesViewModel();
-            model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes();
-
-            return PartialView("_Listing", model);
+            model.AccomodationTypes = accomodationTypesService.SearchAccomodationTypes(searchterm);
+            model.searchterm = searchterm;
+            return View(model);
         }
 
-        public ActionResult Action()
+        //public ActionResult Listing()
+        //{
+        //    AllAccomodationTypesViewModel model = new AllAccomodationTypesViewModel();
+        //    model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes();
+
+        //    return PartialView("_Listing", model);
+        //}
+
+        [HttpGet]
+        public ActionResult Action(int? id)
         {
             AccomodationTypesActionViewModel model = new AccomodationTypesActionViewModel();
+
+            if (id.HasValue)
+            {
+                var getThisAccomodationType = accomodationTypesService.GetAccomodationTypeById(id.Value);
+
+                model.Id = getThisAccomodationType.Id;
+                model.Name = getThisAccomodationType.Name;
+                model.Description = getThisAccomodationType.Description;
+            }
+            
 
             return PartialView("_Action", model);
         }
@@ -36,12 +50,26 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
         public JsonResult Action(AccomodationTypesActionViewModel model)
         {
             JsonResult jsonResult = new JsonResult();
-            AccomodationType newRecord = new AccomodationType();
+            var result = false;
 
-            newRecord.Name = model.Name;
-            newRecord.Description = model.Description;
+            if (model.Id > 0) 
+            {
+                var accomodationType = accomodationTypesService.GetAccomodationTypeById(model.Id);
 
-            var result =  accomodationTypesService.SaveAccomodationType(newRecord);
+                accomodationType.Name = model.Name;
+                accomodationType.Description = model.Description;
+
+                result = accomodationTypesService.UpdateAccomodationType(accomodationType);
+            }
+            else
+            {
+                AccomodationType newRecord = new AccomodationType();
+
+                newRecord.Name = model.Name;
+                newRecord.Description = model.Description;
+
+                result = accomodationTypesService.SaveAccomodationType(newRecord);
+            }
 
             if (result)
             {
@@ -49,7 +77,41 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
             }
             else
             {
-                jsonResult.Data = new { Success = false, Message = "Unable To Add Accomodation Type!!!" };
+                jsonResult.Data = new { Success = false, Message = "Unable to perform action on  Accomodation Type!!!" };
+            }
+
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            AccomodationTypesActionViewModel model = new AccomodationTypesActionViewModel();
+
+            var accomodationType = accomodationTypesService.GetAccomodationTypeById(id);
+
+            model.Id = accomodationType.Id;
+
+            return PartialView("_Delete", model);
+        }
+
+        [HttpPost]
+        public JsonResult Delete(AccomodationTypesActionViewModel model)
+        {
+            JsonResult jsonResult = new JsonResult();
+            var result = false;
+
+            var accomodationType = accomodationTypesService.GetAccomodationTypeById(model.Id);
+
+            result = accomodationTypesService.DeleteAccomodationType(accomodationType);
+
+            if (result)
+            {
+                jsonResult.Data = new { Success = true };
+            }
+            else
+            {
+                jsonResult.Data = new { Success = false, Message = "Unable to perform action on  Accomodation Type!!!" };
             }
 
             return jsonResult;

@@ -15,11 +15,12 @@
             @foreach (var item in Model.AccomodationTypes)
             {
                 <tr>
-                    <th scope="row">@item.Name</th>
+                    <td scope="row">@item.Name</td>
                     <td>@item.Description</td>
                     <td>
-                        <button id="editBtn" type="button" class="btn btn-info"><i class="fas fa-edit mr-1"></i>Edit</button>
-                        <button id="deleteBtn" type="button" class="btn btn-danger"><i class="fa fa-trash mr-1" aria-hidden="true"></i>Delete</button>
+                        <button data-href="@Url.Action("Action", "AccomodationTypes", new { id = item.Id})" id="editBtn" type="button" class="data-btn btn btn-info noHover" data-toggle="modal" data-target="#actionModal"><i class="fas fa-edit mr-1"></i>Edit</button>
+
+                        <button data-href="@Url.Action("Delete", "AccomodationTypes", new { id = item.Id})" id="deleteBtn" type="button" class="data-btn btn btn-danger noHover" data-toggle="modal" data-target="#actionModal"><i class="fa fa-trash mr-1" aria-hidden="true"></i>Delete</button>
                     </td>
                 </tr>
             }

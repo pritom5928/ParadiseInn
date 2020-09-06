@@ -1,4 +1,4 @@
-﻿@model ParadiseInn.Areas.Dashboard.ViewModel.AccomodationTypesActionViewModel
+﻿@model ParadiseInn.Areas.Dashboard.ViewModel.AccomodationPackagesActionViewModel
 
 @if (Model != null)
 {
@@ -7,27 +7,46 @@
             <h5 class="modal-title">
                 @if (Model.Id > 0)
                 {
-                    <span> Edit Accomodation Type </span>
+                    <span> Edit Accomodation Package </span>
                 }
                 else
                 {
-                    <span> Create Accomodation Type </span>     
+                    <span> Create Accomodation Package </span>
                 }
             </h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-           </button>
+            </button>
         </div>
         <div class="modal-body">
             <form id="actionForm">
                 <input type="hidden" name="Id" value="@Model.Id" />
                 <div class="form-group">
+                    <label>Accomodation Type</label>
+                    <select class="form-control" name="AccomodationTypeId">
+                        <option value="0">Select</option>
+                        @if (Model.AccomodationTypes != null)
+                        {
+                            foreach (var item in Model.AccomodationTypes)
+                            {
+                                <option value="@item.Id" @(item.Id == Model.AccomodationTypeId ? "selected" : string.Empty)>@item.Name</option>
+                            }
+                        }
+                        
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>Name</label>
                     <input class="form-control" name="Name" value="@Model.Name" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea rows="4" class="form-control" name="Description" placeholder="Description">@Model.Description</textarea>
+                    <label>No of rooms</label>
+                    <input class="form-control" name="NoOfRoom" value="@Model.NoOfRoom" placeholder="No of room">
+                </div>
+                <div class="form-group">
+                    <label>Fee Per Night</label>
+                    <input class="form-control" name="FeePerNight" value="@Model.FeePerNight" placeholder="Fee per night">
                 </div>
             </form>
 
@@ -53,12 +72,12 @@
 }
 
 
-    <script>
+<script>
 
         $("#actionBtn").click(function () {
 
              $.ajax({
-                 url: '@Url.Action("Action", "AccomodationTypes")',
+                 url: '@Url.Action("Action", "AccomodationPackages")',
                  type: 'post',
                  data: $("#actionForm").serialize()
              })
@@ -73,5 +92,6 @@
 
         });
 
-    </script>
+</script>
+
 

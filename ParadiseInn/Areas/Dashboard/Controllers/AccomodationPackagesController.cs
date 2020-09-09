@@ -15,10 +15,14 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
         AccomodationPackagesService accomodationPackagesService = new AccomodationPackagesService();
         AccomodationTypesService accomodationTypesService = new AccomodationTypesService();
 
-        public ActionResult Index(string searchterm, int? accomodationTypeId)
+        public ActionResult Index(string searchterm, int? accomodationTypeId, int? page)
         {
+            int recordSize = 3;
+
+            page = page ?? 1;
+
             AllAccomodationPackagesViewModel model = new AllAccomodationPackagesViewModel();
-            model.AccomodationPackages = accomodationPackagesService.SearchAccomodationPackages(searchterm, accomodationTypeId);
+            model.AccomodationPackages = accomodationPackagesService.SearchAccomodationPackages(searchterm, accomodationTypeId, page.Value, recordSize);
             model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes();
             model.searchterm = searchterm;
             model.accomodationTypeId = accomodationTypeId;

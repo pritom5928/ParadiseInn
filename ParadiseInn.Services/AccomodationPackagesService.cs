@@ -17,7 +17,7 @@ namespace ParadiseInn.Services
             return db.AccomodationPackages.ToList();
         }
 
-        public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchterm, int? accomodationTypeId)
+        public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchterm, int? accomodationTypeId, int page, int recordSize)
         {
             var allAccomodationPackages = db.AccomodationPackages.AsQueryable();
 
@@ -31,7 +31,10 @@ namespace ParadiseInn.Services
                 allAccomodationPackages = allAccomodationPackages.Where(s => s.AccomodationTypeId == accomodationTypeId);
             }
 
-            return allAccomodationPackages.ToList();
+            var skip = (page - 1) * recordSize;
+
+
+            return allAccomodationPackages.OrderBy(s => s.AccomodationTypeId).Skip(skip).Take(recordSize).ToList();
         }
 
         public bool SaveAccomodationPackage(AccomodationPackage newRecord)

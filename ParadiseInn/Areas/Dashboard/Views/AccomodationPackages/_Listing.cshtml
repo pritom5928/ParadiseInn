@@ -41,6 +41,52 @@
 
         </tbody>
     </table>
+
+    if (Model.Pager.EndPage > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.Pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages")">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages", new { page = Model.Pager.CurrentPage - 1})">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                }
+
+                @for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                {
+                    var activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
+
+                    <li class="@activeClass page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages", new { page = page, searchterm= Model.searchterm, accomodationTypeId = Model.accomodationTypeId})">@page</a>
+                    </li>
+                }
+
+                @if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+                {
+
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages", new { page = Model.Pager.CurrentPage + 1, Model.searchterm, accomodationTypeId = Model.accomodationTypeId})">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages", new { page = Model.Pager.EndPage, Model.searchterm, accomodationTypeId = Model.accomodationTypeId})">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+         
+    }
 }
 
 else

@@ -1,4 +1,5 @@
 ﻿using ParadiseInn.Entities;
+using ParadiseInn.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace ParadiseInn.Areas.Dashboard.ViewModel
         public IEnumerable<AccomodationType> AccomodationTypes { get; set; }
         public string searchterm { get; set; }
         public int? accomodationTypeId { get; set; }
+
+        public Pager Pager { get; set; }
     }
 
     public class AccomodationPackagesActionViewModel

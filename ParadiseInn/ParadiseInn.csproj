@@ -164,15 +164,18 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\AccomodationController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AccomodationPackagesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\AccomodationTypesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\UsersController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AllAccomodationPackagesViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\AllAccomodationTypesViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\AllAccomodationViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\UsersViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -183,6 +186,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Pager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Dashboard\Content\css\simple-sidebar.css" />
@@ -234,6 +238,14 @@
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Listing.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Action.cshtml" />
     <Content Include="Areas\Dashboard\Views\AccomodationPackages\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodation\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodation\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodation\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Accomodation\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\_Listing.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

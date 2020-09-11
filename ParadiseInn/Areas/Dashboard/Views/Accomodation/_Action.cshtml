@@ -1,0 +1,94 @@
+﻿
+@model ParadiseInn.Areas.Dashboard.ViewModel.AccomodationActionViewModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (Model.Id > 0)
+                {
+                    <span> Edit Accomodation </span>
+                }
+                else
+                {
+                    <span> Create Accomodation </span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    <label>Accomodation Package</label>
+                    <select class="form-control" name="AccomodationPackageId">
+                        <option value="0">Select</option>
+                        @if (Model.AccomodationPackages != null)
+                        {
+                            foreach (var item in Model.AccomodationPackages)
+                            {
+                                <option value="@item.Id" @(item.Id == Model.AccomodationPackageId ? "selected" : string.Empty)>@item.Name</option>
+                            }
+                        }
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input class="form-control" name="AccomodationName" value="@Model.AccomodationName" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="Description" value="" placeholder="Description">@Model.Description </textarea>
+                </div>
+            </form>
+
+            <div class="errorDiv">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i>Close</button>
+
+            @if (Model.Id > 0)
+            {
+                <button id="actionBtn" type="button" class="btn btn-primary"><i class="fas fa-edit mr-1"></i>Update</button>
+
+            }
+            else
+            {
+                <button id="actionBtn" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Save</button>
+            }
+
+        </div>
+    </div>
+}
+
+
+<script>
+
+        $("#actionBtn").click(function () {
+
+             $.ajax({
+                 url: '@Url.Action("Action", "Accomodation")',
+                 type: 'post',
+                 data: $("#actionForm").serialize()
+             })
+             .done(function (response) {
+                 if (response.Success) {
+                     location.reload();
+                 }
+                 else {
+                     $(".errorDiv").html(response.Message);
+                 }
+             });
+
+        });
+
+</script>
+
+

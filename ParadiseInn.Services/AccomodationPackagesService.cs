@@ -37,6 +37,23 @@ namespace ParadiseInn.Services
             return allAccomodationPackages.OrderBy(s => s.AccomodationTypeId).Skip(skip).Take(recordSize).ToList();
         }
 
+        public int SearchAccomodationPackagesCount(string searchterm, int? accomodationTypeId)
+        {
+            var allAccomodationPackages = db.AccomodationPackages.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchterm))
+            {
+                allAccomodationPackages = allAccomodationPackages.Where(s => s.Name.ToLower().Contains(searchterm.ToLower()));
+            }
+
+            if (accomodationTypeId.HasValue && accomodationTypeId.Value > 0)
+            {
+                allAccomodationPackages = allAccomodationPackages.Where(s => s.AccomodationTypeId == accomodationTypeId);
+            }
+            
+            return allAccomodationPackages.Count();
+        }
+
         public bool SaveAccomodationPackage(AccomodationPackage newRecord)
         {
 

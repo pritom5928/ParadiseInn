@@ -1,6 +1,7 @@
 ﻿using ParadiseInn.Areas.Dashboard.ViewModel;
 using ParadiseInn.Entities;
 using ParadiseInn.Services;
+using ParadiseInn.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
 
         public ActionResult Index(string searchterm, int? accomodationTypeId, int? page)
         {
-            int recordSize = 3;
+            int recordSize = 5;
 
             page = page ?? 1;
 
@@ -26,6 +27,10 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
             model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes();
             model.searchterm = searchterm;
             model.accomodationTypeId = accomodationTypeId;
+
+            var totalRecords = accomodationPackagesService.SearchAccomodationPackagesCount(searchterm, accomodationTypeId);
+
+            model.Pager = new Pager(totalRecords, page, recordSize);
             return View(model);
         }
 

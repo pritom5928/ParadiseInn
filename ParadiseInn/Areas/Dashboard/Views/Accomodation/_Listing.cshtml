@@ -1,0 +1,96 @@
+﻿
+@model ParadiseInn.Areas.Dashboard.ViewModel.AllAccomodationViewModel
+
+
+@if (Model != null && Model.Accomodations != null && Model.Accomodations.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Accomodation Package</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Accomodations)
+            {
+                <tr>
+                    <td scope="row">@item.AccomodationName</td>
+                    <td>@item.Description</td>
+                    <td>
+                        @if (item.AccomodationPackage != null)
+                        {
+                            <span>@item.AccomodationPackage.Name</span>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td>
+                        <button data-href="@Url.Action("Action", "Accomodation", new { id = item.Id})" id="editBtn" type="button" class="data-btn btn btn-info noHover" data-toggle="modal" data-target="#actionModal"><i class="fas fa-edit mr-1"></i>Edit</button>
+
+                        <button data-href="@Url.Action("Delete", "Accomodation", new { id = item.Id})" id="deleteBtn" type="button" class="data-btn btn btn-danger noHover" data-toggle="modal" data-target="#actionModal"><i class="fa fa-trash mr-1" aria-hidden="true"></i>Delete</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    if (Model.Pager.EndPage > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.Pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Accomodation")">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Accomodation", new { page = Model.Pager.CurrentPage - 1})">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                }
+
+                @for (int page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                {
+                    var activeClass = Model.Pager.CurrentPage == page ? "active" : string.Empty;
+
+                    <li class="@activeClass page-item">
+                        <a class="page-link" href="@Url.Action("Index","Accomodation", new { page = page, searchterm= Model.searchterm, accomodationPackageId = Model.accomodationPackageId})">@page</a>
+                    </li>
+                }
+
+                @if (Model.Pager.CurrentPage < Model.Pager.EndPage)
+                {
+
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Accomodation", new { page = Model.Pager.CurrentPage + 1, Model.searchterm, accomodationPackageId = Model.accomodationPackageId})">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Accomodation", new { page = Model.Pager.EndPage, Model.searchterm, accomodationPackageId = Model.accomodationPackageId})">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+    }
+}
+
+else
+{
+    <div class="alert alert-danger" role="alert">
+        Sorry! No records exists.
+    </div>
+}
+

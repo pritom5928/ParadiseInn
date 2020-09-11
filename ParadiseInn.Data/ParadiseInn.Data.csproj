@@ -49,13 +49,17 @@
     <Compile Include="Migrations\202009011754061_identityContextAdded.designer.cs">
       <DependentUpon>202009011754061_identityContextAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009111840219_adduserProperties.cs" />
+    <Compile Include="Migrations\202009111840219_adduserProperties.Designer.cs">
+      <DependentUpon>202009111840219_adduserProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProjectDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework">
-      <Version>6.4.4</Version>
+      <Version>6.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework">
       <Version>2.2.3</Version>
@@ -73,6 +77,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009011754061_identityContextAdded.resx">
       <DependentUpon>202009011754061_identityContextAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009111840219_adduserProperties.resx">
+      <DependentUpon>202009111840219_adduserProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

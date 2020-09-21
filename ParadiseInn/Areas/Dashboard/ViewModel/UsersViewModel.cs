@@ -36,4 +36,15 @@ namespace ParadiseInn.Areas.Dashboard.ViewModel
         
         //public IEnumerable<IdentityRole> Roles { get; set; }
     }
+
+
+
+    public class UsersRolesViewModel
+    {
+        public string UserId { get; set; }
+
+        public IEnumerable<IdentityRole> UserRoles { get; set; }
+
+       public IEnumerable<IdentityRole> Roles { get; set; }
+    }
 }

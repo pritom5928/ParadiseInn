@@ -21,6 +21,7 @@ namespace ParadiseInn
             app.CreatePerOwinContext(ProjectDbContext.Create);
             app.CreatePerOwinContext<HMSUserManager>(HMSUserManager.Create);
             app.CreatePerOwinContext<HMSSignInManager>(HMSSignInManager.Create);
+            app.CreatePerOwinContext<HMSRolesManger>(HMSRolesManger.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

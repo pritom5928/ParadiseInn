@@ -17,6 +17,11 @@ namespace ParadiseInn.Services
             return db.AccomodationPackages.ToList();
         }
 
+        public IEnumerable<AccomodationPackage> GetAllAccomodationPackagesbyAccomodationType(int accomodationTypeId)
+        {
+            return db.AccomodationPackages.Where(s => s.AccomodationTypeId == accomodationTypeId).ToList();
+        }
+
         public IEnumerable<AccomodationPackage> SearchAccomodationPackages(string searchterm, int? accomodationTypeId, int page, int recordSize)
         {
             var allAccomodationPackages = db.AccomodationPackages.AsQueryable();

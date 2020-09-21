@@ -1,0 +1,75 @@
+﻿
+@model ParadiseInn.Areas.Dashboard.ViewModel.RolesActionViewModel
+
+@if (Model != null)
+{
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">
+                @if (!string.IsNullOrEmpty(Model.Id))
+                {
+                    <span> Edit Role </span>
+                }
+                else
+                {
+                    <span> Create Role </span>
+                }
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="actionForm">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    <label>Role Name</label>
+                    <input class="form-control" name="Name" value="@Model.Name" placeholder="Name">
+                </div>
+            </form>
+            <div class="errorDiv" style="color:red;">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i>Close</button>
+
+            @if (!string.IsNullOrEmpty(Model.Id))
+            {
+                <button id="actionBtn" type="button" class="btn btn-primary"><i class="fas fa-edit mr-1"></i>Update</button>
+
+            }
+            else
+            {
+                <button id="actionBtn" type="button" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Save</button>
+            }
+
+        </div>
+    </div>
+}
+
+
+<script>
+
+        $("#actionBtn").click(function () {
+
+             $.ajax({
+                 url: '@Url.Action("Action", "Roles")',
+                 type: 'post',
+                 data: $("#actionForm").serialize()
+             })
+             .done(function (response) {
+                 if (response.Success) {
+                     location.reload();
+                 }
+                 else {
+                     $(".errorDiv").html(response.Message);
+                 }
+             });
+
+        });
+
+</script>
+
+
+

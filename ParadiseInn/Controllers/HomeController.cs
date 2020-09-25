@@ -13,9 +13,11 @@ namespace ParadiseInn.Controllers
         public ActionResult Index()
         {
             AccomodationTypesService accomoTypeService = new AccomodationTypesService();
-            HomeViewModel model = new HomeViewModel();
+            AccomodationPackagesService accomodationPackagesService = new AccomodationPackagesService();
 
+            HomeViewModel model = new HomeViewModel();
             model.accomodationTypes = accomoTypeService.GetAllAccomodationTypes();
+            model.accomodationPackages = accomodationPackagesService.GetAllAccomodationPackages();
             
             return View(model);
         }

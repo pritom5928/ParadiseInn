@@ -32,7 +32,7 @@
                                 <option value="@item.Id" @(item.Id == Model.AccomodationTypeId ? "selected" : string.Empty)>@item.Name</option>
                             }
                         }
-                        
+
                     </select>
                 </div>
 
@@ -47,6 +47,20 @@
                 <div class="form-group">
                     <label>Fee Per Night</label>
                     <input class="form-control" name="FeePerNight" value="@Model.FeePerNight" placeholder="Fee per night">
+                </div>
+                <div class="form-group">
+                    <label>Pictures</label>
+                    <input id="selectedPictures" class="form-control" name="Pictures" type="file" multiple>
+                    <input type="hidden" name="PictureIds" id="PictureIds" value="" />
+                </div>
+                <div class="form-group" id="pictureArea">
+                    @if (Model.AccomodationPackagePictures != null && Model.AccomodationPackagePictures.Count > 0)
+                    {
+                        foreach (var accomodationPackagePicture in Model.AccomodationPackagePictures)
+                        {
+                            <img src="/Images/site/@accomodationPackagePicture.Picture.URL" class="img-fluid imgdesign" onclick="removeThisImgTemplate(this)" data-id="@accomodationPackagePicture.PictureId" />
+                        }
+                    }
                 </div>
             </form>
 
@@ -71,10 +85,24 @@
     </div>
 }
 
+<div id="imageTemplate">
+    <img src="" class="img-fluid" style="margin-bottom:5px;" onclick="removeThisImgTemplate(this)"/>
+</div>
 
 <script>
 
         $("#actionBtn").click(function () {
+            debugger;
+            var PictureIds = [];
+
+            $("#pictureArea img").each(function () {
+                debugger;
+                var picId = $(this).attr("data-id");
+
+                PictureIds.push(picId);
+            });
+
+            $("#PictureIds").val(PictureIds.join());
 
              $.ajax({
                  url: '@Url.Action("Action", "AccomodationPackages")',
@@ -90,7 +118,48 @@
                  }
              });
 
-        });
+       });
+
+
+    $("#selectedPictures").change(function () {
+        debugger;
+        var pictures = this.files;
+        var picdata = new FormData();
+
+        for (var i = 0; i < pictures.length; i++) {
+            picdata.append("Picture", pictures[i] );
+        }
+
+         $.ajax({
+                 url: '@Url.Action("UploadPictures", "Dashboard")',
+                 type: 'POST',
+                 data: picdata,
+                 processData: false,
+                 contentType: false
+         })
+         .done(function (response) {
+
+             for (var i = 0; i < response.length; i++) {
+
+                 var picture = response[i];
+
+                 var $imgHtml = $("#imageTemplate").clone();
+
+                 $imgHtml.find("img").attr("src", "/Images/site/" + picture.URL);
+                 $imgHtml.find("img").attr("data-id", picture.Id);
+                 
+
+                 $("#pictureArea").append($imgHtml.html());
+                 $(".imgdesign").css("height", "300px");
+                 $(".imgdesign").css("width", "430px");
+             }
+             
+         }); 
+    });
+
+    function removeThisImgTemplate(elem) {
+        $(elem).remove();
+    }
 
 </script>
 

@@ -20,6 +20,7 @@ namespace ParadiseInn.Entities
         [ForeignKey("AccomodationType")]
         public int AccomodationTypeId { get; set; }
         public virtual AccomodationType AccomodationType { get; set; }
-        
+
+        public virtual List<AccomodationPackagePicture> AccomodationPackagePictures { get; set; }
     }
 }

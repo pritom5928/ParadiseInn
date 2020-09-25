@@ -21,5 +21,6 @@ namespace ParadiseInn.Entities
         public int AccomodationPackageId { get; set; }
         public virtual AccomodationPackage AccomodationPackage { get; set; }
 
+        public ICollection<AccomodationPicture> AccomodationPictures { get; set; }
     }
 }

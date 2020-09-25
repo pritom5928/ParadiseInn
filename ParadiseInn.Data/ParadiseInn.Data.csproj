@@ -53,6 +53,22 @@
     <Compile Include="Migrations\202009111840219_adduserProperties.Designer.cs">
       <DependentUpon>202009111840219_adduserProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009211837375_addThreeEntities.cs" />
+    <Compile Include="Migrations\202009211837375_addThreeEntities.Designer.cs">
+      <DependentUpon>202009211837375_addThreeEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009230411086_accomodationpackageUpdated.cs" />
+    <Compile Include="Migrations\202009230411086_accomodationpackageUpdated.Designer.cs">
+      <DependentUpon>202009230411086_accomodationpackageUpdated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009230413293_accomodationpackageUpdated2.cs" />
+    <Compile Include="Migrations\202009230413293_accomodationpackageUpdated2.Designer.cs">
+      <DependentUpon>202009230413293_accomodationpackageUpdated2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009230415309_accomodationpackageUpdated3.cs" />
+    <Compile Include="Migrations\202009230415309_accomodationpackageUpdated3.Designer.cs">
+      <DependentUpon>202009230415309_accomodationpackageUpdated3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProjectDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +96,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009111840219_adduserProperties.resx">
       <DependentUpon>202009111840219_adduserProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009211837375_addThreeEntities.resx">
+      <DependentUpon>202009211837375_addThreeEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009230411086_accomodationpackageUpdated.resx">
+      <DependentUpon>202009230411086_accomodationpackageUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009230413293_accomodationpackageUpdated2.resx">
+      <DependentUpon>202009230413293_accomodationpackageUpdated2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009230415309_accomodationpackageUpdated3.resx">
+      <DependentUpon>202009230415309_accomodationpackageUpdated3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

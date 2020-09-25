@@ -15,6 +15,7 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
 
         AccomodationPackagesService accomodationPackagesService = new AccomodationPackagesService();
         AccomodationTypesService accomodationTypesService = new AccomodationTypesService();
+        DashboardService dashboardService = new DashboardService();
 
         public ActionResult Index(string searchterm, int? accomodationTypeId, int? page)
         {
@@ -56,6 +57,8 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
                 model.NoOfRoom = getThisAccomodationPackage.NoOfRoom;
                 model.FeePerNight = getThisAccomodationPackage.FeePerNight;
                 model.AccomodationTypeId = getThisAccomodationPackage.AccomodationTypeId;
+
+                model.AccomodationPackagePictures = accomodationPackagesService.GetPicturesByAccomodationPackageId(getThisAccomodationPackage.Id);
             }
 
             model.AccomodationTypes = accomodationTypesService.GetAllAccomodationTypes();
@@ -69,6 +72,10 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
             JsonResult jsonResult = new JsonResult();
             var result = false;
 
+            List<int> picIds = !string.IsNullOrEmpty(model.PictureIds)  ? model.PictureIds.Split(',').Select(s => int.Parse(s)).ToList() : new List<int>();
+
+            var pictures = dashboardService.GetPicturesByIds(picIds);
+
             if (model.Id > 0)
             {
                 var accomodationPackage = accomodationPackagesService.GetAccomodationPackageById(model.Id);
@@ -77,6 +84,9 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
                 accomodationPackage.NoOfRoom = model.NoOfRoom;
                 accomodationPackage.FeePerNight = model.FeePerNight;
                 accomodationPackage.AccomodationTypeId = model.AccomodationTypeId;
+
+                accomodationPackage.AccomodationPackagePictures.Clear();
+                accomodationPackage.AccomodationPackagePictures.AddRange(pictures.Select(s => new AccomodationPackagePicture() { AccomodationPackageId = accomodationPackage.Id,  PictureId = s.Id }));
 
                 result = accomodationPackagesService.UpdateAccomodationPackage(accomodationPackage);
             }
@@ -89,17 +99,16 @@ namespace ParadiseInn.Areas.Dashboard.Controllers
                 newRecord.FeePerNight = model.FeePerNight;
                 newRecord.AccomodationTypeId = model.AccomodationTypeId;
 
+                newRecord.AccomodationPackagePictures = new List<AccomodationPackagePicture>();
+                newRecord.AccomodationPackagePictures.AddRange(pictures.Select(s => new AccomodationPackagePicture() { PictureId = s.Id }));
+
                 result = accomodationPackagesService.SaveAccomodationPackage(newRecord);
             }
 
             if (result)
-            {
                 jsonResult.Data = new { Success = true };
-            }
             else
-            {
                 jsonResult.Data = new { Success = false, Message = "Unable to perform action on  Accomodation Package!!!" };
-            }
 
             return jsonResult;
         }

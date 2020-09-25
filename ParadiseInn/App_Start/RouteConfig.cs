@@ -15,8 +15,15 @@ namespace ParadiseInn
 
             routes.MapRoute(
                 name: "FEAccomodation",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Accomodation", action = "Index", id = UrlParameter.Optional },
+                url: "Accomodation",
+                defaults: new { area = "", controller = "Accomodation", action = "Index" },
+                namespaces: new[] { "ParadiseInn.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "AccomodationPackageDetails",
+                url: "accomodation-package/{accomodationPackageId}",
+                defaults: new { area = "", controller = "Accomodation", action = "Details" },
                 namespaces: new[] { "ParadiseInn.Controllers" }
             );
 

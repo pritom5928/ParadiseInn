@@ -22,68 +22,66 @@
 
 @if (Model != null && Model.AccomodationPackages != null && Model.AccomodationPackages.Count() > 0)
 {
+    <div id="colorlib-rooms" class="colorlib-light-grey">
+        <div class="container">
+            <div class="row">
 
-}
-
-<div id="colorlib-rooms" class="colorlib-light-grey">
-    <div class="container">
-        <div class="row">
-
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Select Accomodation Package
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    @foreach (var accomodationPackage in Model.AccomodationPackages)
-                    {
-                        <li class="@(accomodationPackage.Id == Model.selectedAccomodationPackageId ? "active" : string.Empty)">
-                            <a href="@Url.Action("Index", "Accomodation", new { area = "" , accomodationTypeId = Model.AccomodationType.Id , accomodationPacakageId = accomodationPackage.Id })">
-                                @accomodationPackage.Name
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-
-
-            @if (Model.Accomodations != null && Model.Accomodations.Count() > 0)
-            {
-                foreach (var accomodation in Model.Accomodations)
-                {
-                    <div class="col-md-4 room-wrap animate-box">
-                        <a href="images/room-1.jpg" class="room image-popup-link" style="background-image: url(images/room-1.jpg);"></a>
-                        <div class="desc text-center">
-                            <span class="rate-star"><i class="icon-star-full full"></i><i class="icon-star-full full"></i><i class="icon-star-full full"></i><i class="icon-star-full"></i><i class="icon-star-full"></i></span>
-                            <h3>
-                                <a href="rooms-suites.html">
-                                    @accomodation.AccomodationName
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Select Accomodation Package
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        @foreach (var accomodationPackage in Model.AccomodationPackages)
+                        {
+                            <li class="@(accomodationPackage.Id == Model.selectedAccomodationPackageId ? "active" : string.Empty)">
+                                <a href="@Url.Action("Index", "Accomodation", new { area = "" , accomodationTypeId = Model.AccomodationType.Id , accomodationPacakageId = accomodationPackage.Id })">
+                                    @accomodationPackage.Name
                                 </a>
-                            </h3>
-                            <p class="price">
-                                <span class="currency">$</span>
-                                <span class="price-room">@accomodation.AccomodationPackage.FeePerNight</span>
-                                <span class="per">/ per night</span>
-                            </p>
-                            <ul>
-                                <li>
-                                    <i class="icon-check"></i>
-                                    @accomodation.AccomodationPackage.NoOfRoom
-                                </li>
-                            </ul>
-                            <p><a class="btn btn-primary">Book now!</a></p>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+
+                @if (Model.Accomodations != null && Model.Accomodations.Count() > 0)
+                {
+                    foreach (var accomodation in Model.Accomodations)
+                    {
+                        <div class="col-md-4 room-wrap animate-box">
+                            <a href="images/room-1.jpg" class="room image-popup-link" style="background-image: url(images/room-1.jpg);"></a>
+                            <div class="desc text-center">
+                                <h3>
+                                    <a href="rooms-suites.html">
+                                        @accomodation.AccomodationName
+                                    </a>
+                                </h3>
+                                <p class="price">
+                                    <span class="currency">&#2547</span>
+                                    <span class="price-room">@accomodation.AccomodationPackage.FeePerNight</span>
+                                    <span class="per">/ per night</span>
+                                </p>
+                                <ul>
+                                    <li>
+                                       No of Rooms:  @accomodation.AccomodationPackage.NoOfRoom
+                                    </li>
+                                </ul>
+                                <p><a class="btn btn-primary">Book now!</a></p>
+                            </div>
                         </div>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning" role="alert">
+                        No Accomodations Found..
                     </div>
                 }
-            }
-            else
-            {
-                <div class="alert alert-warning" role="alert">
-                    No Accomodations Found..
-                </div>
-            }
 
+            </div>
         </div>
     </div>
-</div>
+}
+
+
 

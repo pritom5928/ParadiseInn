@@ -295,6 +295,7 @@
     <Content Include="Images\room-4.jpg" />
     <Content Include="Images\room-5.jpg" />
     <Content Include="Images\room-6.jpg" />
+    <Content Include="Images\site\default.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\google_map.js" />
@@ -308,6 +309,7 @@
     <Content Include="Scripts\modernizr-2.6.2.min.js" />
     <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -444,6 +446,7 @@
     <Content Include="fonts\icomoon\icomoon.woff" />
     <None Include="packages.config" />
     <Content Include="Views\Accomodation\Index.cshtml" />
+    <Content Include="Views\Accomodation\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ParadiseInn.Data\ParadiseInn.Data.csproj">

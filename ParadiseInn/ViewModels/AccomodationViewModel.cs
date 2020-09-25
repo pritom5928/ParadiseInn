@@ -15,4 +15,9 @@ namespace ParadiseInn.ViewModels
 
         public AccomodationType AccomodationType { get; set; }
     }
+
+    public class AccomodationPackageDetailsViewModel
+    {
+        public AccomodationPackage AccomodationPackage { get; set; }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using ParadiseInn.Data;
+﻿
+using ParadiseInn.Data;
 using ParadiseInn.Entities;
 using System;
 using System.Collections.Generic;
@@ -80,18 +81,43 @@ namespace ParadiseInn.Services
             return new AccomodationPackage();
         }
 
-        public bool UpdateAccomodationPackage(AccomodationPackage model)
+        public bool UpdateAccomodationPackage(AccomodationPackage accomodationPackage)
         {
-            db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+            var existingAccomodationPackage = db.AccomodationPackages.Find(accomodationPackage.Id);
 
+            var existingAccomodationPackagePicturesOfThisAccomodation = db.AccomodationPackagePictures.Find(accomodationPackage.Id);
+
+            if (existingAccomodationPackagePicturesOfThisAccomodation != null)
+            {
+                db.AccomodationPackagePictures.RemoveRange(existingAccomodationPackage.AccomodationPackagePictures);
+            }
+            
+            db.Entry(accomodationPackage).CurrentValues.SetValues(accomodationPackage);
+
+            db.AccomodationPackagePictures.AddRange(accomodationPackage.AccomodationPackagePictures);
+            
             return db.SaveChanges() > 0;
         }
 
         public bool DeleteAccomodationPackage(AccomodationPackage model)
         {
+            var existingAccomodationPackage = db.AccomodationPackages.Find(model.Id);
+            var existingAccomodationPackagePicturesOfThisAccomodation = db.AccomodationPackagePictures.Find(model.Id);
+
+            if (existingAccomodationPackagePicturesOfThisAccomodation != null)
+            {
+                db.AccomodationPackagePictures.RemoveRange(existingAccomodationPackage.AccomodationPackagePictures);
+            }
+            
             db.Entry(model).State = System.Data.Entity.EntityState.Deleted;
 
             return db.SaveChanges() > 0;
+        }
+
+
+        public List<AccomodationPackagePicture> GetPicturesByAccomodationPackageId(int accomodationPackageId)
+        {
+            return db.AccomodationPackages.Find(accomodationPackageId).AccomodationPackagePictures.ToList();
         }
     }
 }

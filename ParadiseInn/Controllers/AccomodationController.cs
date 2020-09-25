@@ -29,5 +29,14 @@ namespace ParadiseInn.Controllers
 
             return View(model);
         }
+
+        public ActionResult Details(int accomodationPackageId)
+        {
+            AccomodationPackageDetailsViewModel model = new AccomodationPackageDetailsViewModel();
+
+            model.AccomodationPackage = accomodationPackagesService.GetAccomodationPackageById(accomodationPackageId);
+
+            return View(model);
+        }
     }
 }

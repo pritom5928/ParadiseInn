@@ -24,7 +24,10 @@ namespace ParadiseInn.Areas.Dashboard.ViewModel
         public int NoOfRoom { get; set; }
         public decimal FeePerNight { get; set; }
         public int AccomodationTypeId { get; set; }
+        public string PictureIds { get; set; }
 
         public IEnumerable<AccomodationType> AccomodationTypes { get; set; }
+
+        public List<AccomodationPackagePicture> AccomodationPackagePictures { get; set; }
     }
 }

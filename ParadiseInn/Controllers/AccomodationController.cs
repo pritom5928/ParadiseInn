@@ -38,5 +38,13 @@ namespace ParadiseInn.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult CheckAvailablity(CheckAccomodationAvailablityViewModel model)
+        {
+            
+
+            return View();
+        }
     }
 }

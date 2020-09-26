@@ -28,6 +28,13 @@ namespace ParadiseInn
             );
 
             routes.MapRoute(
+                name: "CheckAvailablity",
+                url: "accomodation-check-availablity",
+                defaults: new { area = "", controller = "Accomodation", action = "CheckAvailablity" },
+                namespaces: new[] { "ParadiseInn.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
